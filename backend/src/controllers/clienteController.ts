@@ -3,6 +3,11 @@ import { Request, Response } from 'express'
 import { ClienteSchema } from '../schemas/clientes.schema';
 
 export class ClienteController{
+
+    public async login(req:Request, res:Response){
+
+    }
+
     public async getAllClientes(req:Request,res:Response){
         try{
             const clientes = await Cliente.find({tipoUsuario: 'Cliente'})
