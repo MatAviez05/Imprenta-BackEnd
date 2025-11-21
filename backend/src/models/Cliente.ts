@@ -7,6 +7,7 @@ const clienteSchema = new Schema({
     empresa: String,
     telefono: String,
     email: String,
+    contraseña: String,
     direccion: String,
     tipoUsuario: String
 })

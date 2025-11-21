@@ -1,6 +1,6 @@
 import { Cliente } from "../models/Cliente"
-import {Request, Response } from 'express'
-import {ClienteSchema} from '../schemas/clientes.schema';
+import { Request, Response } from 'express'
+import { ClienteSchema } from '../schemas/clientes.schema';
 
 export class ClienteController{
     public async getAllClientes(req:Request,res:Response){
@@ -21,12 +21,13 @@ export class ClienteController{
             return res.status(400).json({error:'validationError', detail: 'Faltan datos'})
         }
         try{
-            const{nombre,empresa,telefono,email,direccion,tipoUsuario} = req.body
+            const{nombre,empresa,telefono,email,contraseña,direccion,tipoUsuario} = req.body
             const clienteNew = new Cliente({
                 nombre: nombre,
                 empresa: empresa,
                 telefono: telefono,
                 email: email,
+                contraseña: contraseña,
                 direccion: direccion,
                 tipoUsuario: tipoUsuario
             })
