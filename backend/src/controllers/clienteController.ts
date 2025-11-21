@@ -77,6 +77,39 @@ export class ClienteController{
             return res.status(401).json({error: 'Error al obtener los datos'})
         }
     }
+    public async updateCliente(req: Request, res: Response) {
+        try {
+            const id = req.params.id;
+            const parse = ClienteSchema.safeParse(req.body);
+            
+            if (!parse.success) {
+                return res.status(400).json({ error: 'validationError', detail: 'Datos inválidos' });
+            }
+
+            const { nombre, empresa, telefono, email, direccion, tipoUsuario } = req.body;
+
+            const clienteActualizado = await Cliente.findByIdAndUpdate(
+                id,
+                {
+                    nombre,
+                    empresa,
+                    telefono,
+                    email,
+                    direccion,
+                    tipoUsuario
+                },
+                { new: true, runValidators: true }
+            );
+
+            if (!clienteActualizado) {
+                return res.status(404).json({ error: 'Cliente no encontrado' });
+            }
+
+            return res.status(200).json(clienteActualizado);
+        } catch {
+            return res.status(401).json({ error: 'Error al actualizar los datos' });
+        }
+    }
 
     public async deleteCliente(req:Request, res:Response){
         try{
