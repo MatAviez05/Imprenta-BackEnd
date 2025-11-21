@@ -1,7 +1,9 @@
 import Server from "./app";
 
-const server = new Server(3000);
+const port = +(process.env.PORT || 3000)
+
+const server = new Server(port);
 server.start(()=>{
-    console.log("on port 3000");
+    console.log(`on port ${port}`);
     
 })
