@@ -1,8 +1,46 @@
 import { Cliente } from "../models/Cliente"
-import {Request, Response } from 'express'
-import {ClienteSchema} from '../schemas/clientes.schema';
+import { Request, Response } from 'express'
+import { ClienteSchema } from '../schemas/clientes.schema';
+import  jwt  from "jsonwebtoken";
 
 export class ClienteController{
+
+    public async login(req:Request, res:Response){
+        
+        try{
+            const password:string = process.env.PASSWORD_JWT
+
+            const {email, contraseña} = req.body
+            const usuFound = await Cliente.findOne({email: email})
+
+            if(!usuFound || !usuFound.contraseña){
+                throw new Error('Contraseña o Email incorrecto')
+            }
+
+            if(usuFound.contraseña !== contraseña){
+                throw new Error('Contraseña incorrecto')
+            }
+
+            const payload = {
+                userName: usuFound.nombre,
+                userEmail: usuFound.email
+            }
+
+            const token = jwt.sign(
+
+                payload, password,
+                {
+                    expiresIn: '24h',
+                }
+            )
+
+            return res.status(200).json(token)
+
+        }catch{
+            res.status(401).json({message: 'Error de password o email'})
+        }
+    }
+
     public async getAllClientes(req:Request,res:Response){
         try{
             const clientes = await Cliente.find({tipoUsuario: 'Cliente'})
@@ -21,12 +59,13 @@ export class ClienteController{
             return res.status(400).json({error:'validationError', detail: 'Faltan datos'})
         }
         try{
-            const{nombre,empresa,telefono,email,direccion,tipoUsuario} = req.body
+            const{nombre,empresa,telefono,email,contraseña,direccion,tipoUsuario} = req.body
             const clienteNew = new Cliente({
                 nombre: nombre,
                 empresa: empresa,
                 telefono: telefono,
                 email: email,
+                contraseña: contraseña,
                 direccion: direccion,
                 tipoUsuario: tipoUsuario
             })

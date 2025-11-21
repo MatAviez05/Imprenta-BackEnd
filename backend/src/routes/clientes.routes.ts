@@ -1,10 +1,12 @@
 import { Router } from 'express';
 import ClientesController from '../controllers/clienteController'
-
+import verifyTokenMiddleware from "../middlewares/verifyToken.middleware";
 
 export const routerClientes = Router()
-routerClientes.post('auth/register',ClientesController.addCliente)
-//implementar el login
 
-routerClientes.get('/list-clientes',ClientesController.getAllClientes)
-routerClientes.delete('/id', ClientesController.deleteCliente)
+routerClientes.post('/auth/register', ClientesController.addCliente)
+routerClientes.post('/auth/login', ClientesController.login )
+routerClientes.get('/list-clientes', verifyTokenMiddleware, ClientesController.getAllClientes)
+routerClientes.delete('/:id', verifyTokenMiddleware ,ClientesController.deleteCliente)
+
+export default routerClientes
