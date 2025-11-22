@@ -5,7 +5,7 @@ export const ClienteSchema = z.object({
     empresa: z.string(),
     telefono: z.string(),
     email: z.email(),
-    contraseña: z.string(),
+    contraseña: z.string().optional(),
     direccion: z.string(),
     tipoUsuario: z.string()
 

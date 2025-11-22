@@ -59,16 +59,36 @@ export class ClienteController{
             return res.status(400).json({error:'validationError', detail: 'Faltan datos'})
         }
         try{
-            const{nombre,empresa,telefono,email,contraseña,direccion,tipoUsuario} = req.body
-            const clienteNew = new Cliente({
-                nombre: nombre,
-                empresa: empresa,
-                telefono: telefono,
-                email: email,
-                contraseña: contraseña,
-                direccion: direccion,
-                tipoUsuario: tipoUsuario
-            })
+            let clienteNew
+            const{ nombre, empresa, telefono, email, contraseña, direccion, tipoUsuario } = req.body
+
+            switch(tipoUsuario){
+                case 'Admin':
+                    clienteNew = new Cliente({
+                    nombre: nombre,
+                    empresa: empresa,
+                    telefono: telefono,
+                    email: email,
+                    contraseña: contraseña,
+                    direccion: direccion,
+                    tipoUsuario: tipoUsuario
+                    })
+                    break
+                case 'Cliente':
+                    clienteNew = new Cliente({
+                    nombre: nombre,
+                    empresa: empresa,
+                    telefono: telefono,
+                    email: email,
+                    direccion: direccion,
+                    tipoUsuario: tipoUsuario
+                    })
+                    break
+            }
+
+            if(!clienteNew){
+                throw new Error('Error al crear un cliente')
+            }
 
             await clienteNew.save()
 
