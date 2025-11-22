@@ -10,6 +10,8 @@ const clienteSchema = new Schema({
     contraseña: String,
     direccion: String,
     tipoUsuario: String
+}, {
+    timestamps: true
 })
 
 clienteSchema.pre('save', async function(next){
