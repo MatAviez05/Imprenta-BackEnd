@@ -4,10 +4,10 @@ import verifyTokenMiddleware from "../middlewares/verifyToken.middleware";
 
 export const routerPedido = Router()
 
-routerPedido.post('/', PedidosController.addPedido)
+routerPedido.post('/', verifyTokenMiddleware, PedidosController.addPedido)
 routerPedido.get('/', PedidosController.getAllPedidos)
-routerPedido.get('/mis-pedidos/:id', PedidosController.getPedidoByCliente)
-routerPedido.put('/:id', PedidosController.updatePedido)
-routerPedido.delete('/:id', PedidosController.deletePedido)
+routerPedido.get('/mis-pedidos/:id', verifyTokenMiddleware, PedidosController.getPedidoByCliente)
+routerPedido.put('/:id', verifyTokenMiddleware, PedidosController.updatePedido)
+routerPedido.delete('/:id', verifyTokenMiddleware, PedidosController.deletePedido)
 
 export default routerPedido
