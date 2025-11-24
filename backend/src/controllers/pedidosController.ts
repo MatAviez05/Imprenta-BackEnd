@@ -1,7 +1,8 @@
 import { Pedido } from "../models/Pedido";
 import { Cliente } from "../models/Cliente";
-import { Request, Response } from 'express'
-
+import { Request, Response } from 'express';
+import { PedidosSchema } from "../schemas/pedidos.schema";
+import { PedidosSchemaUpdate } from "../schemas/pedidos.schema";
 
 export class PedidoController{
     
@@ -31,6 +32,10 @@ export class PedidoController{
     }
 
     public async addPedido(req:Request, res:Response){
+        const parse = PedidosSchema.safeParse(req.body)
+        if(!parse.success){
+            return res.status(400).json({error:'validationError', detail: 'Faltan datos'})
+        }
         try{
             const {id_cliente, tipo_trabajo, cantidad, tamaño, color, tipo_papel, estado, observaciones, estado_pago} = req.body
 
@@ -61,6 +66,10 @@ export class PedidoController{
     }
 
     public async updatePedido(req:Request, res:Response){
+        const parse = PedidosSchemaUpdate.safeParse(req.body)
+        if(!parse.success){
+            return res.status(400).json({error:'validationError', detail: 'Faltan datos'})
+        }
         try{
             const id = req.params.id
             const { tipo_trabajo, cantidad, tamaño, color, tipo_papel, estado, observaciones, estado_pago} = req.body
