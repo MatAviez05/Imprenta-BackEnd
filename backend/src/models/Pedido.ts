@@ -5,7 +5,7 @@ const pedidoSchema = new Schema({
     _id: Number,
     id_cliente: Number,
     tipo_trabajo: String,
-    cantidad: String,
+    cantidad: Number,
     tamaño: String,
     color: String,
     tipo_papel: String,

@@ -6,7 +6,7 @@ export const routerPedido = Router()
 
 routerPedido.post('/', PedidosController.addPedido)
 routerPedido.get('/', PedidosController.getAllPedidos)
-routerPedido.get('/mis-pedidos', PedidosController.getPedidoByCliente)
+routerPedido.get('/mis-pedidos/:id', PedidosController.getPedidoByCliente)
 routerPedido.put('/:id', PedidosController.updatePedido)
 routerPedido.delete('/:id', PedidosController.deletePedido)
 
