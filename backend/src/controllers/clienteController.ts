@@ -1,6 +1,6 @@
 import { Cliente } from "../models/Cliente"
 import { Request, Response } from 'express'
-import { ClienteSchema } from '../schemas/clientes.schema';
+import { ClienteSchema, ClienteSchemaUpdate } from '../schemas/clientes.schema';
 import  jwt  from "jsonwebtoken";
 
 export class ClienteController{
@@ -100,7 +100,7 @@ export class ClienteController{
     public async updateCliente(req: Request, res: Response) {
         try {
             const id = req.params.id;
-            const parse = ClienteSchema.safeParse(req.body);
+            const parse = ClienteSchemaUpdate.safeParse(req.body);
             
             if (!parse.success) {
                 return res.status(400).json({ error: 'validationError', detail: 'Datos inválidos' });

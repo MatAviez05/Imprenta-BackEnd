@@ -10,3 +10,13 @@ export const ClienteSchema = z.object({
     tipoUsuario: z.string()
 
 })
+
+export const ClienteSchemaUpdate = z.object({
+    nombre: z.string().optional(),
+    empresa: z.string().optional(),
+    telefono: z.string().optional(),
+    email: z.email().optional(),
+    direccion: z.string().optional(),
+    tipoUsuario: z.string().optional()
+
+})
