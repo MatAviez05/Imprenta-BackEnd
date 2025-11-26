@@ -25,4 +25,4 @@ clienteSchema.pre('save', async function(next){
     }
     next();
 })
-export const Cliente = mongoose.model('Cliente',clienteSchema)
+export const Cliente = mongoose.model('Cliente', clienteSchema)

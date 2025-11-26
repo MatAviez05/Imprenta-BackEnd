@@ -3,7 +3,8 @@ import { Request, Response, NextFunction } from "express";
 
 interface JwtPayLoadCustom{
     userName: string,
-    userEmail: string
+    userEmail: string,
+    userTipoUsuario: string
 }
 
 const password: string = process.env.PASSWORD_JWT;

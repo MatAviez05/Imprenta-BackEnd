@@ -23,7 +23,8 @@ export class ClienteController{
 
             const payload = {
                 userName: usuFound.nombre,
-                userEmail: usuFound.email
+                userEmail: usuFound.email,
+                userTipoUsuario: usuFound.tipoUsuario
             }
 
             const token = jwt.sign(
